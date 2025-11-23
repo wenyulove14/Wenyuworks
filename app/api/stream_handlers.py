@@ -234,6 +234,7 @@ async def stream_response_generator(
                         content="空响应次数达到上限\n请修改输入提示词",
                         finish_reason="stop",
                         stream=True,
+                        role="error",
                     )
 
                 return
@@ -408,6 +409,7 @@ async def stream_response_generator(
                         content="空响应次数达到上限\n请修改输入提示词",
                         finish_reason="stop",
                         stream=True,
+                        role="error",
                     )
 
                 return
@@ -419,25 +421,18 @@ async def stream_response_generator(
         extra={"key": "ALL", "request_type": "stream", "model": chat_request.model},
     )
 
-    # 根据配置决定返回内容
-    if settings.SHOW_API_ERROR_MESSAGE:
-        # 显示错误消息
-        error_content = "所有API密钥均请求失败\n具体错误请查看轮询日志"
-    else:
-        # 返回空内容
-        error_content = ""
-    
     if is_gemini:
         yield gemini_from_text(
-            content=error_content,
+            content="所有API密钥均请求失败\n具体错误请查看轮询日志",
             finish_reason="STOP",
             stream=True,
         )
     else:
         yield openAI_from_text(
             model=chat_request.model,
-            content=error_content,
+            content="所有API密钥均请求失败\n具体错误请查看轮询日志",
             finish_reason="stop",
+            role="error",
         )
 
 

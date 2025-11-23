@@ -79,17 +79,17 @@ search = {
 RANDOM_STRING = os.environ.get("RANDOM_STRING", "true").lower() in ["true", "1", "yes"]
 RANDOM_STRING_LENGTH = int(os.environ.get("RANDOM_STRING_LENGTH", "5"))
 
+# 是否全局启用思考过程
+ENABLE_THINKING = os.environ.get("ENABLE_THINKING", "true").lower() in [
+    "true",
+    "1",
+    "yes",
+]
+
 # 空响应重试次数限制
 MAX_EMPTY_RESPONSES = int(
     os.environ.get("MAX_EMPTY_RESPONSES", "5")
 )  # 默认最多允许5次空响应
-
-# API密钥空回时是否替换文本信息
-SHOW_API_ERROR_MESSAGE = os.environ.get("SHOW_API_ERROR_MESSAGE", "true").lower() in [
-    "true",
-    "1",
-    "yes",
-]  # 默认为True，显示替换文本；False时返回空响应
 
 # ---------- 以下是其他配置信息 ----------
 
